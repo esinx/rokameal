@@ -17,9 +17,10 @@ import { MealFetcher } from 'rokameal'
 
 const main = async () => {
 	const mealFetcher = new MealFetcher(YOUR_API_KEY_HERE)
-	const mealData = mealFetcher.getMeal('ATC', new Date()) // 육훈소
-	console.log(`박병장님 오늘 아침메뉴는 ${meal.breakfast.join(', ')}입니다`)
+	const mealData = await mealFetcher.getMeal('ATC', new Date()) // 육훈소
+	console.log(`박병장님 오늘 아침메뉴는 ${mealData.breakfast.join(', ')}입니다`)
 }
+main()
 ```
 
 ## Features
