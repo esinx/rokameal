@@ -6,6 +6,8 @@
 		"name": "esinx",
 		"url": "esinx.net"
 	},
+	"homepage": "https://github.com/esinx/rokameal",
+	"repository": "github:esinx/rokameal",
 	"description": "Simplified meal data fetcher using Republic of Korea Army Open Data API (Ministry of Defense)",
 	"keywords": [
 		"ROKA",
