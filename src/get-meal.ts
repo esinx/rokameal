@@ -24,7 +24,13 @@ type OpenDataResponse = {
 	}
 }
 
-type MealData = Record<'breakfast' | 'lunch' | 'dinner', string[]>
+type MealData = Record<
+	'breakfast' | 'lunch' | 'dinner',
+	{
+		menu: string[]
+		calories: string
+	}
+>
 type DailyMealRecord = Record<string, MealData>
 type MealCache = Record<typeof BASE_CODES[number], Record<string, MealData>>
 
@@ -34,18 +40,38 @@ const parseData = (rows: MealRow[]): DailyMealRecord =>
 			...acc,
 			[cur.dates]: acc[cur.dates]
 				? {
-						breakfast: appendedIfNotEmpty(acc[cur.dates].breakfast, cur.brst),
-						lunch: appendedIfNotEmpty(acc[cur.dates].breakfast, cur.lunc),
-						dinner: appendedIfNotEmpty(acc[cur.dates].dinner, cur.dinr),
+						breakfast: {
+							menus: appendedIfNotEmpty(acc[cur.dates].breakfast, cur.brst),
+							calories: cur.brst_cal,
+						},
+						lunch: {
+							menus: appendedIfNotEmpty(acc[cur.dates].lunch, cur.lunc),
+							calories: cur.lunc_cal,
+						},
+						dinner: {
+							menus: appendedIfNotEmpty(acc[cur.dates].dinner, cur.dinr),
+							calories: cur.dinr_cal,
+						},
 				  }
 				: {
-						breakfast: appendedIfNotEmpty([], cur.brst),
-						lunch: appendedIfNotEmpty([], cur.lunc),
-						dinner: appendedIfNotEmpty([], cur.dinr),
+						breakfast: {
+							menus: appendedIfNotEmpty([], cur.brst),
+							calories: cur.brst_cal,
+						},
+						lunch: {
+							menus: appendedIfNotEmpty([], cur.lunc),
+							calories: cur.lunc_cal,
+						},
+						dinner: {
+							menus: appendedIfNotEmpty([], cur.dinr),
+							calories: cur.dinr_cal,
+						},
 				  },
 		}),
 		{},
 	)
+
+export const cleanMenuName = (name: string) => name.replace(/\(\d\d\)/g, '')
 
 export class MealFetcher {
 	private authKey: string

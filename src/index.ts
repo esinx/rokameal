@@ -1,2 +1,2 @@
 export { BASE_CODES } from './constants'
-export { MealFetcher } from './get-meal'
+export { cleanMenuName, MealFetcher } from './get-meal'
