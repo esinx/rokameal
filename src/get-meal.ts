@@ -1,5 +1,5 @@
 import { BASE_CODES } from './constants'
-import { appendedIfNotEmpty } from './utils'
+import { appendedIfNotEmpty, extractNumbers } from './utils'
 
 import fetch from 'cross-fetch'
 import { DateTime } from 'luxon'
@@ -28,7 +28,7 @@ type MealData = Record<
 	'breakfast' | 'lunch' | 'dinner',
 	{
 		menu: string[]
-		calories: string
+		calories: number
 	}
 >
 type DailyMealRecord = Record<string, MealData>
@@ -41,30 +41,37 @@ const parseData = (rows: MealRow[]): DailyMealRecord =>
 			[cur.dates]: acc[cur.dates]
 				? {
 						breakfast: {
-							menus: appendedIfNotEmpty(acc[cur.dates].breakfast.menus, cur.brst),
-							calories: cur.brst_cal,
+							menus: appendedIfNotEmpty(
+								acc[cur.dates].breakfast.menus,
+								cur.brst,
+							),
+							calories:
+								acc[cur.dates].breakfast.calories +
+								extractNumbers(cur.brst_cal),
 						},
 						lunch: {
 							menus: appendedIfNotEmpty(acc[cur.dates].lunch.menus, cur.lunc),
-							calories: cur.lunc_cal,
+							calories:
+								acc[cur.dates].lunch.calories + extractNumbers(cur.lunc_cal),
 						},
 						dinner: {
 							menus: appendedIfNotEmpty(acc[cur.dates].dinner.menus, cur.dinr),
-							calories: cur.dinr_cal,
+							calories:
+								acc[cur.dates].dinner.calories + extractNumbers(cur.dinr_cal),
 						},
 				  }
 				: {
 						breakfast: {
 							menus: appendedIfNotEmpty([], cur.brst),
-							calories: cur.brst_cal,
+							calories: extractNumbers(cur.brst_cal),
 						},
 						lunch: {
 							menus: appendedIfNotEmpty([], cur.lunc),
-							calories: cur.lunc_cal,
+							calories: extractNumbers(cur.lunc_cal),
 						},
 						dinner: {
 							menus: appendedIfNotEmpty([], cur.dinr),
-							calories: cur.dinr_cal,
+							calories: extractNumbers(cur.dinr_cal),
 						},
 				  },
 		}),

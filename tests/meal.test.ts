@@ -10,6 +10,7 @@ test('Loads meals successfully (today)', async () => {
 	expect(result).toHaveProperty('breakfast')
 	expect(result).toHaveProperty('lunch')
 	expect(result).toHaveProperty('dinner')
+	)
 })
 
 /* test(
