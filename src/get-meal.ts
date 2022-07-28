@@ -24,7 +24,7 @@ type OpenDataResponse = {
 	}
 }
 
-type MealData = Record<
+export type MealData = Record<
 	'breakfast' | 'lunch' | 'dinner',
 	{
 		menu: string[]
