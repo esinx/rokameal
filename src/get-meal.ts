@@ -27,7 +27,7 @@ type OpenDataResponse = {
 export type MealData = Record<
 	'breakfast' | 'lunch' | 'dinner',
 	{
-		menu: string[]
+		menus: string[]
 		calories: number
 	}
 >
