@@ -41,15 +41,15 @@ const parseData = (rows: MealRow[]): DailyMealRecord =>
 			[cur.dates]: acc[cur.dates]
 				? {
 						breakfast: {
-							menus: appendedIfNotEmpty(acc[cur.dates].breakfast, cur.brst),
+							menus: appendedIfNotEmpty(acc[cur.dates].breakfast.menus, cur.brst),
 							calories: cur.brst_cal,
 						},
 						lunch: {
-							menus: appendedIfNotEmpty(acc[cur.dates].lunch, cur.lunc),
+							menus: appendedIfNotEmpty(acc[cur.dates].lunch.menus, cur.lunc),
 							calories: cur.lunc_cal,
 						},
 						dinner: {
-							menus: appendedIfNotEmpty(acc[cur.dates].dinner, cur.dinr),
+							menus: appendedIfNotEmpty(acc[cur.dates].dinner.menus, cur.dinr),
 							calories: cur.dinr_cal,
 						},
 				  }
